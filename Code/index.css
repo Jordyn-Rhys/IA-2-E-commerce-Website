@@ -9,6 +9,9 @@
     --radius: 0.5rem;
 }
 
+html{
+    scroll-behavior: smooth;
+}
 body{
     background-color: #FFFEDF;
 }
@@ -177,6 +180,244 @@ body{
 .nav-buttons.hero01, .nav-buttons.hero02{
     background-color: color-mix(in srgb, white 90%, transparent);
 }
+
+.description-container {
+    padding: 2rem 5%;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    margin-top: 10rem;
+    font-family: 'Quicksand', monospace;
+    border-radius: 20px; 
+}
+
+.description-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.description-row {
+    display: flex;
+    gap: 1rem;
+    align-items: stretch;     
+    width: 100%;
+}
+
+.description-row.reverse {
+    flex-direction: row-reverse;
+}
+
+.description-card {
+    flex: 1 1 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 1rem;
+    box-sizing: border-box;
+    background: #FEFFB8;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+}
+
+.text{
+    align-items: flex-start;
+    text-align: left;
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.text h3 {
+    margin: 0 0 0.4rem 0;
+    font-size: 1.1rem;
+    line-height: 1.15;
+    font-weight: 700;
+}
+
+.text p {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.45;
+    color: #263f31;
+}
+
+.img {
+    padding: 0rem; 
+    border-radius: 10px;
+    display: block; 
+}
+
+.img img{
+    display: block;
+    width: 100%;            
+    height: auto;            
+    object-fit: contain;     
+    object-position: center;
+    border-radius: 8px;
+}
+.img, .text {
+    min-height: 180px;    
+}
+
+.visit-container {
+    padding: 2rem 5%;
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 12rem;
+    font-family: 'Quicksand', monospace;
+    background-color: #FEFFB8;
+}
+
+.visit.block {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap; 
+    flex-direction: row;
+    justify-content: center;
+}
+
+.visit-title {
+    width: 100%;
+    margin: 0 0 0.75rem 0;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.visit-link {
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 0.5rem); 
+    min-width: 220px;
+    text-decoration: none;
+    color: inherit;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.visit-link img {
+    display: block;
+    width: 100%;
+    height: 160px;
+    object-fit: cover; 
+    object-position: center;
+    
+}
+
+.visit-link-body {
+    padding: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.visit-link-body strong {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.visit-link-body span {
+    font-size: 0.95rem;
+    color: rgba(0,0,0,0.65);
+}
+
+.visit-link:hover, .visit-link:focus {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.10);
+    outline: none;
+}
+
+.visit-link:focus {
+    box-shadow: 0 18px 40px rgba(0,0,0,0.14), 0 0 0 4px rgba(11,109,90,0.08);
+}
+
+.about-us-container{
+    padding: 2rem 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    box-sizing: border-box;
+    max-width: 1000px;
+    margin: 0 auto;
+    font-family: 'Quicksand', monospace;
+    margin-top: 12rem;
+    margin-bottom: 10rem;
+    background-color: #FEFFB8;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.about-title{
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    line-height: 1.15;
+    font-weight: 700;
+}
+
+.about-text{
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #13241a;
+    max-width: 70ch;
+}
+
+.footer{
+    width: 100%;
+    padding: 1rem 5%;
+    background: rgba(0,0,0,0.03);
+    box-sizing: border-box;
+    font-family: "Quicksand", system-ui, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-copy{
+    margin: 0;
+    font-size: 0.95rem;
+    color: rgba(0,0,0,0.75);
+    text-align: center;
+}
+.back-to-top{
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 20px;
+    opacity: 0;
+    background-color: color-mix(in srgb, #f5f785 90%, transparent);
+    transition: transform 200ms, opacity 200ms ease;
+    z-index: 1000;
+    pointer-events: none;
+    box-shadow: 0 10px 24px rgba(11,109,90,0.14);
+}
+
+.back-to-top{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background-color: #57b7a4;
+    transform: translateY(-2px);
+}
+
+
 
 
 
