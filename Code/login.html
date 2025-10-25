@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Symphony</title>
+    <link rel="stylesheet" href="index.css"> 
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <header class="header-container">
+        <div class="header-logo-block"> 
+            <img src="../Assets/Logo01.png">
+            <p>Solar Symphony</p>
+        </div>
+        <div class="header-nav-block">
+            <button class="nav-buttons" onclick="window.location.href='index.html'">Home</button>
+            <button class="nav-buttons">Store</button>
+            <button class="nav-buttons" onclick="window.location.href='register.html'">Register</button>
+        </div>
+    </header>
+    <section class="login-container"> 
+        <div class="login-box">
+            <h2 class="login-title">Log in</h2>
+            <div class="login-content">
+                <form class="login-form" method="post" action="/login">   
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required />
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required />
+                    <button type="submit" class="nav-buttons">Log in</button>
+                </form>
+                <p>You haven't signed up with us?</p>
+                <button class="nav-buttons login">Sign up</button>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <p class="footer-copyright">
+            © 2025 Solar Symphony. All rights reserved.
+        </p>
+    </footer>
+</body>
