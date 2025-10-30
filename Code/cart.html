@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cart — Solar Symphony</title>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="cart.css" />
+</head>
+<body> 
+    <script src="cart.js"></script>
+    <header class="header-container">
+        <div class="header-logo-block"> 
+            <img src="../Assets/Logo01.png">
+            <p>Solar Symphony</p>
+        </div>
+        <div class="header-nav-block">
+            <button class="nav-buttons" onclick="window.location.href='index.html'">Home</button>
+            <button class="nav-buttons" onclick="window.location.href='store.html'">Store</button>
+            <button class="nav-buttons" onclick="window.location.href='login.html'">Log-in</button>
+            <button class="nav-buttons" onclick="window.location.href='register.html'">Register</button>
+        </div>
+    </header>
+    <section class="cart-container">
+        <a class="back" href="store.html">Continue Shopping</a>
+        <h2 class="cart-title">Your Shopping Cart</h2>
+        <div class="cart-box">
+            <div class="cart-items" id="cart-items-root" aria-live="polite"></div>
+            <aside class="summary" aria-labelledby="summary-heading">
+                <h2 class="cart-heading">Order Summary</h2>
+                <div class="row">
+                    <div class="cart">Subtotal</div>
+                    <div id="subtotal" class="subtotal">$0.00</div>
+                </div>
+                <div class="row small">
+                    <div>Shipping</div>
+                    <div class="mute">Calculated at checkout</div>
+                </div>
+                <div class="row small">
+                    <div>Taxes</div>
+                    <div class="mute">Calculated at checkout</div>
+                </div>
+                <div>
+                    <button id="checkoutBtn" class="checkout-btn" type="button">Proceed to checkout</button>
+                </div>
+            </aside>
+        </div>
+    </section>
+</body>
