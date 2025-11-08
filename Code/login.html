@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
+    <script src="login.js"></script>
     <header class="header-container">
         <div class="header-logo-block"> 
             <img src="../Assets/Logo01.png">
@@ -22,7 +23,7 @@
         <div class="login-box">
             <h2 class="login-title">Log in</h2>
             <div class="login-content">
-                <form class="login-form" method="post" action="/login">   
+                <form class="login-form" id="login-form">   
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required />
                     <label for="password">Password</label>

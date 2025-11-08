@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cart — Solar Symphony</title>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="checkout.css" />
+</head>
+<body> 
+    <header class="header-container">
+        <div class="header-logo-block"> 
+            <img src="../Assets/Logo01.png">
+            <p>Solar Symphony</p>
+        </div>
+        <div class="header-nav-block">
+            <button class="nav-buttons" onclick="window.location.href='index.html'">Home</button>
+            <button class="nav-buttons" onclick="window.location.href='store.html'">Store</button>
+        </div>
+    </header>
+    <section class="checkout-container">
+        <h2 class="checkout-title">Checkout</h2>
+        <form class="login-form" id="checkout-form">
+            <label for="address">Delivery Address</label>
+            <textarea id="address" required></textarea>
+            <label for="payment">Payment Method</label>
+            <select id="payment" required>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Debit Card">Debit Card</option>
+                <option value="Cash on Delivery">Cash on Delivery</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+            <button type="submit" class="nav-buttons">Place Order</button>
+        </form>
+        <section class="receipt-container">
+            <h3 class="receipt-title">Order Receipt</h3>
+            <pre id="receipt-output"></pre>
+            <button id="download-receipt" class="nav-buttons">Download Receipt</button>
+        </section>
+    </section>
+    <script src="main.js"></script>
+</body>
