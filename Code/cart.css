@@ -1,3 +1,5 @@
+/* File: cart.css - Styles for the shopping cart page */
+/* Layout: main container for the cart page */
 .cart-container {
     max-width: 1100px;
     margin: 0 auto;
@@ -5,6 +7,7 @@
     font-family: 'Quicksand', monospace;
 }
 
+/* Small back link used to continue shopping */
 .back{
     display: inline-block;
     margin-bottom: .75rem;
@@ -13,24 +16,28 @@
     font-weight: 600;
 }
 
+/* Page title */
 .cart-title{
     margin: .25rem 0 1rem;
     font-size: 1.35rem;
     line-height: 1.15;
 }
 
+/* Cart content layout: items + summary */
 .cart-box {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
+/* List of cart item rows */
 .cart-items{
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
+/* Individual cart item card */
 .cart-item{
     display: flex;
     gap: .75rem;
@@ -47,6 +54,7 @@
     box-shadow: 0 14px 36px rgba(13,13,13,0.08);
 }
 
+/* Product image in cart */
 .cart-image {
     width: 84px;
     height: 84px;
@@ -55,11 +63,13 @@
     flex: 0 0 84px;
 }
 
+/* Details column: name, meta and controls */
 .cart-details {
   flex: 1 1 auto;
   min-width: 0;
 }
 
+/* Product title inside cart details */
 .cart-details h3 {
   margin: 0 0 .35rem;
   font-size: 1rem;
@@ -69,6 +79,7 @@
   white-space: nowrap;
 }
 
+/* Small meta text (product id, unit info) */
 .cart-details .meta {
   margin: 0;
   color: #6f6f6f;
@@ -76,6 +87,7 @@
   line-height: 1.2;
 }
 
+/* Actions row: quantity input + remove button */
 .line-actions {
   display: flex;
   gap: .5rem;
@@ -84,6 +96,7 @@
   flex-wrap: wrap;
 }
 
+/* Quantity input styling */
 .qty-input {
   width: 86px;
   padding: .45rem .5rem;
@@ -93,6 +106,7 @@
   font-size: .95rem;
 }
 
+/* Remove item button */
 .remove-btn {
   padding: .45rem .6rem;
   border-radius: 10px;
@@ -103,6 +117,7 @@
   font-weight: 600;
 }
 
+/* Line total (price * qty) */
 .line-total {
   min-width: 96px;
   text-align: right;
@@ -113,6 +128,7 @@
   align-self: center;
 }
 
+/* Order summary box */
 .summary {
   display: flex;
   flex-direction: column;
@@ -123,6 +139,7 @@
   box-shadow: 0 8px 24px rgba(13,13,13,0.06);
 }
 
+/* Rows inside the summary box */
 .summary .row {
   display: flex;
   justify-content: space-between;
@@ -131,17 +148,20 @@
   padding: 0;
 }
 
+/* Subtotal amount styling */
 .summary .subtotal {
   font-weight: 800;
   color: #0b6d5a;
   font-size: 1.05rem;
 }
 
+/* Muted helper text */
 .summary .muted {
   color: #6f6f6f;
   font-size: .95rem;
 }
 
+/* Primary checkout button */
 .checkout-btn {
   margin-top: .25rem;
   padding: .9rem 1rem;
@@ -154,12 +174,14 @@
   box-shadow: 0 8px 20px rgba(11,109,90,0.12);
 }
 
+/* Disabled state for checkout button */
 .checkout-btn:disabled {
   opacity: .6;
   cursor: not-allowed;
   box-shadow: none;
 }
 
+/* Empty cart placeholder */
 .empty {
   padding: 1.5rem;
   text-align: center;
@@ -169,5 +191,6 @@
 }
 
 .small { font-size: .9rem; color: #6f6f6f; }
+.visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px,1px,1px,1px); white-space: nowrap; }
 .visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px,1px,1px,1px); white-space: nowrap; }
 

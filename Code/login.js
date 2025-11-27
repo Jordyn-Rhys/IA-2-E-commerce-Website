@@ -1,24 +1,31 @@
+// File: login.js - Handles login and registration interactions (client-side)
 document.addEventListener('DOMContentLoaded', function () {
+  // Short query helper
   const $ = sel => document.querySelector(sel);
 
+  // getReturnTo: reads returnTo param so we can navigate back after auth
   function getReturnTo() {
     const params = new URLSearchParams(window.location.search);
     return params.get('returnTo') || 'store.html';
   }
 
+  // Basic email validation (very small check)
   function validateEmail(email) {
     console.log("Validating email:", email);
     return String(email).includes('@') && email.includes('.');
   }
 
+  // Ensure a minimal password length
   function validatePassword(pw) {
     return pw && pw.length >= 6;
   }
 
+  // Simple error UI (alert) for demo purposes
   function showError(msg) {
     alert(`⚠️ ${msg}`);
   }
 
+  // Helpers to read/write a simple users array in localStorage (demo only)
   function getUsers() {
     try {
       const raw = localStorage.getItem('users');
@@ -28,22 +35,25 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // Save a new user to localStorage
   function saveUser(email, password) {
     const users = getUsers();
     users.push({ email, password });
     localStorage.setItem('users', JSON.stringify(users));
   }
 
+  // Find user by email
   function findUser(email) {
     return getUsers().find(u => u.email === email);
   }
 
+  // Check user credentials (plain-text demo check)
   function checkCredentials(email, password) {
     const user = findUser(email);
     return user && user.password === password;
   }
 
-  // LOGIN
+  // LOGIN: handle login form submission
   const loginForm = $('#login-form');
   if (loginForm) {
     loginForm.addEventListener('submit', function (e) {

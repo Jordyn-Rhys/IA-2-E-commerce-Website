@@ -1,13 +1,17 @@
+// File: main.js - Main site scripts (cart, store, checkout handling)
 document.addEventListener('DOMContentLoaded', function () {
   console.log("✅ main.js loaded");
 
-  // Utility functions
+  // Utility helpers
+  // Short selector helper
   const $ = sel => document.querySelector(sel);
+  // Format numbers as currency strings
   const formatMoney = n => {
     const num = Number(n) || 0;
     return '$' + num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
 
+  // Read cart from localStorage (returns array)
   function readCart() {
     try {
       const raw = localStorage.getItem('cart');
@@ -18,16 +22,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // Save cart to localStorage
   function saveCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
+  // Normalize incoming price values to numbers
   function normalizePrice(value) {
     if (value == null) return 0;
     if (typeof value === 'number') return value;
     return Number(String(value).replace(/[^0-9.-]+/g, '')) || 0;
   }
 
+  // Very small HTML escape for inserted strings
   function escapeHtml(str) {
     if (!str && str !== 0) return '';
     return String(str)
@@ -38,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .replace(/'/g, "&#039;");
   }
 
+  // Add an item to cart (or increment qty if exists)
   function addToCart(id, name, price, img, qty = 1) {
     if (!id || !name || !price) {
       console.warn('Missing product data:', { id, name, price, img });
@@ -60,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
     alert(`✅ "${name}" has been added to your cart.`);
   }
 
+  // Render cart page contents; attaches event handlers
   function renderCart() {
     const root = document.getElementById('cart-items-root');
     if (!root) return; // not on cart page
@@ -128,16 +137,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Simple auth check using localStorage token
   function isLoggedInClientSide() {
     return !!localStorage.getItem('authToken');
   }
 
+  // Redirect user to login and preserve returnTo path
   function redirectToLoginWithReturn() {
     const returnTo = encodeURIComponent(window.location.pathname + window.location.search);
     window.location.href = `login.html?returnTo=${returnTo}`;
   }
 
-  // Store page logic
+  // Store page: wire up "Add to cart" buttons
   document.querySelectorAll('.store').forEach(btn => {
     btn.addEventListener('click', function () {
       const id = this.dataset.id;
@@ -149,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
  renderCart();
 
-  //Checkout page logic
+  // Checkout page logic: submit, generate receipt, clear cart
   const checkoutForm = document.getElementById('checkout-form');
   const receiptSection = document.querySelector('.receipt-container');
   const receiptOutput = document.getElementById('receipt-output');

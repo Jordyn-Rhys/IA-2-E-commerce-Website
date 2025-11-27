@@ -1,3 +1,4 @@
+/* File: index.css - Styles for the homepage and site */
 :root{
     --rev: 1;
     --gap: calc(1rem * var(--rev));
