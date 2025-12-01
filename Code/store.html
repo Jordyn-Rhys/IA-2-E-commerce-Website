@@ -1,149 +1,300 @@
 <!-- File: store.html - Product listing and installation packages -->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Solar Symphony</title>
-    <link rel="stylesheet" href="index.css"> 
-    <link rel="stylesheet" href="store.css">
-</head>
-<body>
-    <script src="main.js"></script>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="store.css" />
+  </head>
+  <body>
     <!-- Header (shared across pages) -->
     <header class="header-container">
-        <div class="header-logo-block"> 
-            <img src="../Assets/Logo01.png">
-            <p>Solar Symphony</p>
-        </div>
-        <div class="header-nav-block">
-            <button class="nav-buttons" onclick="window.location.href='index.html'">Home</button>
-            <button class="nav-buttons" onclick="window.location.href='login.html'">Log-in</button>
-            <button class="nav-buttons" onclick="window.location.href='register.html'">Register</button>
-            <button class="nav-buttons" onclick="window.location.href='cart.html'">Cart</button>
-        </div>
+      <div class="header-logo-block">
+        <img src="../Assets/Logo01.png" />
+        <p>Solar Symphony</p>
+      </div>
+      <div class="header-nav-block">
+        <button class="nav-buttons" onclick="window.location.href='index.html'">
+          Home
+        </button>
+        <button class="nav-buttons" onclick="window.location.href='store.html'">
+          Store
+        </button>
+        <!-- These show when user is NOT logged in -->
+        <button
+          class="nav-buttons login-btn"
+          onclick="window.location.href='login.html'"
+          style="display: none"
+        >
+          Log-in
+        </button>
+        <button
+          class="nav-buttons register-btn"
+          onclick="window.location.href='register.html'"
+          style="display: none"
+        >
+          Register
+        </button>
+        <!-- These show when user is logged in -->
+        <button
+          class="nav-buttons invoices-btn"
+          onclick="window.location.href='invoice-history.html'"
+          style="display: none"
+        >
+          My Invoices
+        </button>
+        <button
+          class="nav-buttons cart-icon-btn"
+          onclick="window.location.href='cart.html'"
+          style="display: none"
+        >
+          <span class="cart-icon">
+            <img src="/Assets/cart.svg" alt="cart icon" />
+          </span>
+          <span class="cart-badge" id="nav-cart-badge">0</span>
+        </button>
+        <button
+          class="nav-buttons logout-btn"
+          onclick="logout() "
+          style="display: none"
+        >
+          Logout
+        </button>
+      </div>
     </header>
     <!-- Store hero and product grid -->
-    <section class="store-container" id="head"> 
-       <h2 class="store-title">Shop at Solar Symphony</h2>
-       <p class="store-hero">
-            Power Your Future with Clean, Affordable Solar Energy Harness the Sun’s Unlimited Potential. Save Money, Save the Planet.
-            Get Your High-Efficiency Solar Panels Today!
-       </p>
-    <!-- Product grid row -->
-    <div class="Store-content-box">
-            <article class="product-card" data-product-id="x100">
-                <img src="../Assets/product-img01.avif" class="product-image">
-                <h3 class="product-name">SolarMax Mono 400</h3>
-                <p class="product-description">Type: Monocrystalline<br>Power Output: 250 W<br>Efficiency: 16%</p>
-                <p class="product-price">$25,000</p>
-                <div class="product-actions">
-                    <button type="button" data-id="x100" data-name="SolarMax Mono 400" data-price="25000" data-img="../Assets/product-img01.avif" class="nav-buttons store">Add to cart</button>
-                    <button class="nav-buttons storeL">Learn more!</button>
-                </div>
-            </article>
+    <section class="store-container" id="head">
+      <h2 class="store-title">Shop at Solar Symphony</h2>
+      <p class="store-hero">
+        Power Your Future with Clean, Affordable Solar Energy Harness the Sun's
+        Unlimited Potential. Save Money, Save the Planet. Get Your
+        High-Efficiency Solar Panels Today!
+      </p>
+      <!-- Product grid row -->
+      <div class="store-content-box">
+        <article class="product-card" data-product-id="x100">
+          <img src="../Assets/product-img01.avif" class="product-image" />
+          <h3 class="product-name">SolarMax Mono 400</h3>
+          <p class="product-description">
+            Type: Monocrystalline<br />Power Output: 250 W<br />Efficiency: 16%
+          </p>
+          <p class="product-price">$25,000</p>
+          <div class="product-actions">
+            <button
+              type="button"
+              data-id="x100"
+              data-name="SolarMax Mono 400"
+              data-price="25000"
+              data-img="../Assets/product-img01.avif"
+              class="nav-buttons store"
+            >
+              Add to cart
+            </button>
+            <button class="nav-buttons storeL">Learn more!</button>
+          </div>
+        </article>
 
-            <article class="product-card" data-product-id="x101">
-                <img src="../Assets/product-img01.avif" class="product-image">
-                <h3 class="product-name">SolarMax Mono 500</h3>
-                <p class="product-description">Type: Monocrystalline<br>Power Output: 350 W<br>Efficiency: 20%</p>
-                <p class="product-price">$40,000</p>
-                <div class="product-actions">
-                    <button type="button" data-id="x101" data-name="SolarMax Mono 500" data-price="25000" data-img="../Assets/product-img01.avif" class="nav-buttons store">Add to cart</button>
-                    <button class="nav-buttons storeL">Learn more!</button>
-                </div>
-            </article>
+        <article class="product-card" data-product-id="x101">
+          <img src="../Assets/product-img01.avif" class="product-image" />
+          <h3 class="product-name">SolarMax Mono 500</h3>
+          <p class="product-description">
+            Type: Monocrystalline<br />Power Output: 350 W<br />Efficiency: 20%
+          </p>
+          <p class="product-price">$40,000</p>
+          <div class="product-actions">
+            <button
+              type="button"
+              data-id="x101"
+              data-name="SolarMax Mono 500"
+              data-price="25000"
+              data-img="../Assets/product-img01.avif"
+              class="nav-buttons store"
+            >
+              Add to cart
+            </button>
+            <button class="nav-buttons storeL">Learn more!</button>
+          </div>
+        </article>
 
-            <article class="product-card" data-product-id="x102">
-                <img src="../Assets/product-img01.avif" class="product-image">
-                <h3 class="product-name">SolarMax Mono 600</h3>
-                <p class="product-description">Type: Monocrystalline<br>Power Output: 400 W<br>Efficiency: 23%</p>
-                <p class="product-price">$50,000</p>
-                <div class="product-actions">
-                    <button type="button" data-id="x102" data-name="SolarMax Mono 600" data-price="25000" data-img="../Assets/product-img01.avif" class="nav-buttons store">Add to cart</button>
-                    <button class="nav-buttons storeL">Learn more!</button>
-                </div>
-            </article>
-       </div>
-       <div class="Store-content-box">
-             <article class="product-card" data-product-id="y200">
-                <img src="../Assets/product-img02.jpg" class="product-image">
-                <h3 class="product-name">ClearSky Poly 280</h3>
-                <p class="product-description">Type: Polycrystalline<br>Power Output: 250 W<br>Efficiency: 13%</p>
-                <p class="product-price">$50,000</p>
-                <div class="product-actions">
-                    <button type="button" data-id="y200" data-name="ClearSky Poly 280" data-price="25000" data-img="../Assets/product-img02.jpg" class="nav-buttons store">Add to cart</button>
-                    <button class="nav-buttons storeL">Learn more!</button>
-                </article>
-            </artile>
+        <article class="product-card" data-product-id="x102">
+          <img src="../Assets/product-img01.avif" class="product-image" />
+          <h3 class="product-name">SolarMax Mono 600</h3>
+          <p class="product-description">
+            Type: Monocrystalline<br />Power Output: 400 W<br />Efficiency: 23%
+          </p>
+          <p class="product-price">$50,000</p>
+          <div class="product-actions">
+            <button
+              type="button"
+              data-id="x102"
+              data-name="SolarMax Mono 600"
+              data-price="25000"
+              data-img="../Assets/product-img01.avif"
+              class="nav-buttons store"
+            >
+              Add to cart
+            </button>
+            <button class="nav-buttons storeL">Learn more!</button>
+          </div>
+        </article>
+      </div>
+      <div class="store-content-box">
+        <article class="product-card" data-product-id="y200">
+          <img src="../Assets/product-img02.jpg" class="product-image" />
+          <h3 class="product-name">ClearSky Poly 280</h3>
+          <p class="product-description">
+            Type: Polycrystalline<br />Power Output: 250 W<br />Efficiency: 13%
+          </p>
+          <p class="product-price">$50,000</p>
+          <div class="product-actions">
+            <button
+              type="button"
+              data-id="y200"
+              data-name="ClearSky Poly 280"
+              data-price="25000"
+              data-img="../Assets/product-img02.jpg"
+              class="nav-buttons store"
+            >
+              Add to cart
+            </button>
+            <button class="nav-buttons storeL">Learn more!</button>
+          </div>
+        </article>
 
-             <article class="product-card" data-product-id="y201"> 
-                <img src="../Assets/product-img02.jpg" class="product-image">
-                <h3 class="product-name">ClearSky Poly 320</h3>
-                <p class="product-description">Type: Polycrystalline<br>Power Output: 380 W<br>Efficiency: 15%</p>
-                <p class="product-price">$75,000</p>
-                <div class="product-actions">
-                    <button type="button" data-id="y201" data-name="ClearSky Poly 320" data-price="25000" data-img="../Assets/product-img02.jpg" class="nav-buttons store">Add to cart</button>
-                    <button class="nav-buttons storeL">Learn more!</button>
-                </article>
-            </article>
+        <article class="product-card" data-product-id="y201">
+          <img src="../Assets/product-img02.jpg" class="product-image" />
+          <h3 class="product-name">ClearSky Poly 320</h3>
+          <p class="product-description">
+            Type: Polycrystalline<br />Power Output: 380 W<br />Efficiency: 15%
+          </p>
+          <p class="product-price">$75,000</p>
+          <div class="product-actions">
+            <button
+              type="button"
+              data-id="y201"
+              data-name="ClearSky Poly 320"
+              data-price="25000"
+              data-img="../Assets/product-img02.jpg"
+              class="nav-buttons store"
+            >
+              Add to cart
+            </button>
+            <button class="nav-buttons storeL">Learn more!</button>
+          </div>
+        </article>
 
-             <article class="product-card" data-product-id="y202">
-                <img src="../Assets/product-img02.jpg" class="product-image">
-                <h3 class="product-name">ClearSky Poly 380</h3>
-                <p class="product-description">Type: Polycrystalline<br>Power Output: 400 W<br>Efficiency: 16%</p>
-                <p class="product-price">$80,000</p>
-                <div class="product-actions">
-                    <button type="button" data-id="y202" data-name="ClearSky Poly 380" data-price="25000" data-img="../Assets/product-img02.jpg" class="nav-buttons store">Add to cart</button>
-                    <button class="nav-buttons storeL">Learn more!</button>
-                </div>
-            </article>
-       </div>
-    <!-- Installation packages section -->
-    <div class="installation-container" id="installation">
-            <h2 class="store-title">Installation Packages</h2>
-            <p class="store-hero">
-                Our installation packages offer comprehensive solar energy solutions, carefully curated to include everything you 
-                need for a seamless setup. Whether you want a full system with panels, batteries, and converters or just the essential 
-                components, we provide tailored packages to meet your energy needs and budget, backed by professional installation and support.
-            </p>
-            <div class="Store-content-box" data-product-id="inst01">
-                <div class="product-card installation">
-                    <img src="../Assets/product-installation01.webp" class="product-image installation">
-                    <h3 class="product-name">SolarComplete Power Pack</h3>
-                    <p class="product-description installation">
-                        The SolarComplete Power Pack offers a comprehensive, all-in-one solar energy solution tailored to your 
-                        specific needs. Choose any of our high-quality monocrystalline or polycrystalline panels to match your 
-                        energy goals and budget, combined with a reliable solar battery for energy storage and a high-efficiency 
-                        inverter to convert your solar power for everyday use. This package ensures seamless installation and optimal 
-                        performance, providing you with clean, uninterrupted power while maximizing savings on your electricity bills.  
-                    </p>
-                    <p class="product-price">$250,000</p>
-                    <div class="product-actions">
-                        <button type="button" data-id="inst01" data-name="SolarComplete Power Pack" data-price="250000" data-img="../Assets/product-installation01.webp" class="nav-buttons store">Add to cart</button>
-                    </div>
-                </div>
-
-                <div class="product-card installation" data-product-id="inst02">
-                    <img src="../Assets/product-installation02.webp" class="product-image installation">
-                    <h3 class="product-name">SolarBasics Installation Package</h3>
-                    <p class="product-description installation">
-                        The SolarBasics Installation Package delivers a simple, efficient solar panel setup designed to get you started on 
-                        renewable energy with ease. Choose from our range of monocrystalline or polycrystalline panels, expertly installed 
-                        with a high-performance inverter to convert the harnessed solar power into electricity for your property. This package 
-                        is ideal for customers who want a hassle-free, professional installation focused on delivering reliable solar energy 
-                        without additional components, making it the perfect choice for straightforward solar adoption or system expansion.
-                    </p>
-                    <p class="product-price">$125,000</p>
-                    <div class="product-actions">
-                        <button type="button" data-id="inst02" data-name="SolarBasics Installation Package" data-price="125000" data-img="../Assets/product-installation02.webp" class="nav-buttons store">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-       </div>
-    </section>
-     <footer class="footer">
-        <p class="footer-copyright">
-            © 2025 Solar Symphony. All rights reserved.
+        <article class="product-card" data-product-id="y202">
+          <img src="../Assets/product-img02.jpg" class="product-image" />
+          <h3 class="product-name">ClearSky Poly 380</h3>
+          <p class="product-description">
+            Type: Polycrystalline<br />Power Output: 400 W<br />Efficiency: 16%
+          </p>
+          <p class="product-price">$80,000</p>
+          <div class="product-actions">
+            <button
+              type="button"
+              data-id="y202"
+              data-name="ClearSky Poly 380"
+              data-price="25000"
+              data-img="../Assets/product-img02.jpg"
+              class="nav-buttons store"
+            >
+              Add to cart
+            </button>
+            <button class="nav-buttons storeL">Learn more!</button>
+          </div>
+        </article>
+      </div>
+      <!-- Installation packages section -->
+      <div class="installation-container" id="installation">
+        <h2 class="store-title">Installation Packages</h2>
+        <p class="store-hero">
+          Our installation packages offer comprehensive solar energy solutions,
+          carefully curated to include everything you need for a seamless setup.
+          Whether you want a full system with panels, batteries, and converters
+          or just the essential components, we provide tailored packages to meet
+          your energy needs and budget, backed by professional installation and
+          support.
         </p>
+        <div class="store-content-box" data-product-id="inst01">
+          <div class="product-card installation">
+            <img
+              src="../Assets/product-installation01.webp"
+              class="product-image installation"
+            />
+            <h3 class="product-name">SolarComplete Power Pack</h3>
+            <p class="product-description installation">
+              The SolarComplete Power Pack offers a comprehensive, all-in-one
+              solar energy solution tailored to your specific needs. Choose any
+              of our high-quality monocrystalline or polycrystalline panels to
+              match your energy goals and budget, combined with a reliable solar
+              battery for energy storage and a high-efficiency inverter to
+              convert your solar power for everyday use. This package ensures
+              seamless installation and optimal performance, providing you with
+              clean, uninterrupted power while maximizing savings on your
+              electricity bills.
+            </p>
+            <p class="product-price">$250,000</p>
+            <div class="product-actions">
+              <button
+                type="button"
+                data-id="inst01"
+                data-name="SolarComplete Power Pack"
+                data-price="250000"
+                data-img="../Assets/product-installation01.webp"
+                class="nav-buttons store"
+              >
+                Add to cart
+              </button>
+            </div>
+          </div>
+
+          <div class="product-card installation" data-product-id="inst02">
+            <img
+              src="../Assets/product-installation02.webp"
+              class="product-image installation"
+            />
+            <h3 class="product-name">SolarBasics Installation Package</h3>
+            <p class="product-description installation">
+              The SolarBasics Installation Package delivers a simple, efficient
+              solar panel setup designed to get you started on renewable energy
+              with ease. Choose from our range of monocrystalline or
+              polycrystalline panels, expertly installed with a high-performance
+              inverter to convert the harnessed solar power into electricity for
+              your property. This package is ideal for customers who want a
+              hassle-free, professional installation focused on delivering
+              reliable solar energy without additional components, making it the
+              perfect choice for straightforward solar adoption or system
+              expansion.
+            </p>
+            <p class="product-price">$125,000</p>
+            <div class="product-actions">
+              <button
+                type="button"
+                data-id="inst02"
+                data-name="SolarBasics Installation Package"
+                data-price="125000"
+                data-img="../Assets/product-installation02.webp"
+                class="nav-buttons store"
+              >
+                Add to cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      <p class="footer-copyright">
+        © 2025 Solar Symphony. All rights reserved.
+      </p>
     </footer>
     <a href="#head" class="back-to-top">↑</a>
-</body>
+
+    <!-- MOVED SCRIPTS TO BOTTOM -->
+    <script src="login.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
