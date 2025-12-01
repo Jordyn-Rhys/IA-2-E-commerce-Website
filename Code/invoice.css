@@ -1,0 +1,120 @@
+.invoice-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem;
+  font-family: "Quicksand", monospace;
+  background: white;
+}
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #0b6d5a;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-container img {
+  width: 60px;
+  height: 60px;
+}
+
+.logo-container h1 {
+  color: #0b6d5a;
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.invoice-info {
+  display: flex;
+  gap: 3rem;
+}
+
+.billing-info h3 {
+  margin: 0.5rem 0;
+  color: #12221a;
+}
+
+.billing-info p {
+  margin: 0.25rem 0;
+  color: #6f6f6f;
+}
+
+.invoice-details {
+  text-align: right;
+}
+
+.invoice-details p {
+  margin: 0.5rem 0;
+  font-weight: 600;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.invoice-table th {
+  background: #0b6d5a;
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.invoice-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.invoice-table tfoot td {
+  border-bottom: none;
+  padding: 0.75rem 1rem;
+}
+
+.summary-row {
+  background: #f9f9f9;
+}
+
+.grand-total-row {
+  background: #0b6d5a;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.grand-total-row td {
+  font-weight: 800;
+}
+
+.invoice-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.thankyou {
+  text-align: center;
+  color: #0b6d5a;
+  font-style: italic;
+  margin-top: 2rem;
+}
+
+@media print {
+  .header-container,
+  .invoice-buttons {
+    display: none;
+  }
+
+  .invoice-container {
+    padding: 0;
+  }
+}

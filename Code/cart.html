@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cart — Solar Symphony</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="cart.css" />
+  </head>
+  <body>
+    <!-- Header (shared across pages) -->
+    <header class="header-container">
+      <div class="header-logo-block">
+        <img src="../Assets/Logo01.png" />
+        <p>Solar Symphony</p>
+      </div>
+      <div class="header-nav-block">
+        <button class="nav-buttons" onclick="window.location.href='index.html'">
+          Home
+        </button>
+        <button class="nav-buttons" onclick="window.location.href='store.html'">
+          Store
+        </button>
+        <!-- These show when user is NOT logged in -->
+        <button
+          class="nav-buttons login-btn"
+          onclick="window.location.href='login.html'"
+          style="display: none"
+        >
+          Log-in
+        </button>
+        <button
+          class="nav-buttons register-btn"
+          onclick="window.location.href='register.html'"
+          style="display: none"
+        >
+          Register
+        </button>
+        <!-- These show when user is logged in -->
+        <button
+          class="nav-buttons invoices-btn"
+          onclick="window.location.href='invoice-history.html'"
+          style="display: none"
+        >
+          My Invoices
+        </button>
+        <button
+          class="nav-buttons cart-icon-btn"
+          onclick="window.location.href='cart.html'"
+          style="display: none"
+        >
+          <span class="cart-icon">
+            <img src="/Assets/cart.svg" alt="cart icon" />
+          </span>
+          <span class="cart-badge" id="nav-cart-badge">0</span>
+        </button>
+        <button
+          class="nav-buttons logout-btn"
+          onclick="logout() "
+          style="display: none"
+        >
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Cart content: items list and order summary -->
+    <section class="cart-container">
+      <a class="back" href="store.html">Continue Shopping</a>
+      <h2 class="cart-title">Your Shopping Cart</h2>
+      <div class="cart-box">
+        <div class="cart-items" id="cart-items-root" aria-live="polite"></div>
+        <aside class="summary" aria-labelledby="summary-heading">
+          <h2 class="cart-heading">Order Summary</h2>
+
+          <div class="row">
+            <div>Total Items</div>
+            <div id="total-items" class="mute">0</div>
+          </div>
+
+          <div class="row">
+            <div>Subtotal</div>
+            <div id="subtotal">$0.00</div>
+          </div>
+
+          <div class="row">
+            <div>Shipping</div>
+            <div id="shipping">$0.00</div>
+          </div>
+
+          <div class="row">
+            <div>Discount</div>
+            <div id="discount" style="color: #e74c3c">-$0.00</div>
+          </div>
+
+          <div class="row">
+            <div>Taxes (15%)</div>
+            <div id="taxes">$0.00</div>
+          </div>
+
+          <hr
+            style="margin: 1rem 0; border: none; border-top: 1px solid #e3e3e3"
+          />
+
+          <div class="row total-row">
+            <div><strong>Total</strong></div>
+            <div
+              id="total"
+              style="font-weight: 800; font-size: 1.2rem; color: #0b6d5a"
+            >
+              $0.00
+            </div>
+          </div>
+
+          <div class="cart-buttons" style="margin-top: 1rem">
+            <button id="clearCartBtn" class="remove-btn" type="button">
+              Clear Cart
+            </button>
+            <button id="checkoutBtn" class="checkout-btn" type="button">
+              Proceed to checkout
+            </button>
+          </div>
+        </aside>
+      </div>
+    </section>
+    <script src="login.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

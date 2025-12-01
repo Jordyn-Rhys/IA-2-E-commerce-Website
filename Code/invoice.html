@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Invoice — Solar Symphony</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="invoice.css" />
+  </head>
+  <body>
+    <!-- Header (shared across pages) -->
+    <header class="header-container">
+      <div class="header-logo-block">
+        <img src="../Assets/Logo01.png" />
+        <p>Solar Symphony</p>
+      </div>
+      <div class="header-nav-block">
+        <button class="nav-buttons" onclick="window.location.href='index.html'">
+          Home
+        </button>
+        <button class="nav-buttons" onclick="window.location.href='store.html'">
+          Store
+        </button>
+        <!-- These show when user is NOT logged in -->
+        <button
+          class="nav-buttons login-btn"
+          onclick="window.location.href='login.html'"
+          style="display: none"
+        >
+          Log-in
+        </button>
+        <button
+          class="nav-buttons register-btn"
+          onclick="window.location.href='register.html'"
+          style="display: none"
+        >
+          Register
+        </button>
+        <!-- These show when user is logged in -->
+        <button
+          class="nav-buttons invoices-btn"
+          onclick="window.location.href='invoice-history.html'"
+          style="display: none"
+        >
+          My Invoices
+        </button>
+        <button
+          class="nav-buttons cart-icon-btn"
+          onclick="window.location.href='cart.html'"
+          style="display: none"
+        >
+          <span class="cart-icon">
+            <img src="/Assets/cart.svg" alt="cart icon" />
+          </span>
+          <span class="cart-badge" id="nav-cart-badge">0</span>
+        </button>
+        <button
+          class="nav-buttons logout-btn"
+          onclick="logout() "
+          style="display: none"
+        >
+          Logout
+        </button>
+      </div>
+    </header>
+    <main class="invoice-container">
+      <section class="invoice-header">
+        <div class="logo-container">
+          <img src="../Assets/Logo01.png" alt="Solar Symphony Logo" />
+          <h1>Solar Symphony</h1>
+        </div>
+        <div class="invoice-info">
+          <div class="billing-info">
+            <p>BILLING TO</p>
+            <h3 id="customer-name"></h3>
+            <p id="customer-address"></p>
+            <p id="customer-email"></p>
+            <p id="customer-phone"></p>
+          </div>
+          <div class="invoice-details">
+            <p>Invoice NO: <span id="invoice-no"></span></p>
+            <p>Date: <span id="invoice-date"></span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="invoice-items">
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="invoice-products">
+            <!-- Product rows will be inserted here dynamically -->
+          </tbody>
+          <tfoot>
+            <tr class="summary-row">
+              <td colspan="2"></td>
+              <td><strong>Subtotal</strong></td>
+              <td id="invoice-subtotal"></td>
+            </tr>
+            <tr class="summary-row">
+              <td colspan="2"></td>
+              <td><strong>Shipping</strong></td>
+              <td id="invoice-shipping"></td>
+            </tr>
+            <tr class="summary-row">
+              <td colspan="2"></td>
+              <td><strong>Discount</strong></td>
+              <td id="invoice-discount" style="color: #e74c3c"></td>
+            </tr>
+            <tr class="summary-row">
+              <td colspan="2"></td>
+              <td><strong>Tax</strong></td>
+              <td id="invoice-taxes"></td>
+            </tr>
+            <tr class="grand-total-row">
+              <td colspan="2"></td>
+              <td><strong>Total</strong></td>
+              <td id="invoice-total"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+
+      <div class="invoice-buttons">
+        <button id="print-invoice" class="nav-buttons">Print Invoice</button>
+        <button id="back-to-store" class="nav-buttons">Back to Store</button>
+      </div>
+
+      <h3 class="thankyou">Thank You For Your Business!</h3>
+    </main>
+    <script src="login.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

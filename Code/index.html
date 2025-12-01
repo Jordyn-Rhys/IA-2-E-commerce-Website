@@ -1,0 +1,177 @@
+<!-- File: index.html - Main homepage for Solar Symphony -->
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solar Symphony</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <!-- Header (shared across pages) -->
+  <header class="header-container">
+    <div class="header-logo-block">
+      <img src="../Assets/Logo01.png" />
+      <p>Solar Symphony</p>
+    </div>
+    <div class="header-nav-block">
+      <button class="nav-buttons" onclick="window.location.href='index.html'">
+        Home
+      </button>
+      <button class="nav-buttons" onclick="window.location.href='store.html'">
+        Store
+      </button>
+      <!-- These show when user is NOT logged in -->
+      <button
+        class="nav-buttons login-btn"
+        onclick="window.location.href='login.html'"
+        style="display: none"
+      >
+        Log-in
+      </button>
+      <button
+        class="nav-buttons register-btn"
+        onclick="window.location.href='register.html'"
+        style="display: none"
+      >
+        Register
+      </button>
+      <!-- These show when user is logged in -->
+      <button
+        class="nav-buttons invoices-btn"
+        onclick="window.location.href='invoice-history.html'"
+        style="display: none"
+      >
+        My Invoices
+      </button>
+      <button
+        class="nav-buttons cart-icon-btn"
+        onclick="window.location.href='cart.html'"
+        style="display: none"
+      >
+        <span class="cart-icon">
+          <img src="/Assets/cart.svg" alt="cart icon" />
+        </span>
+        <span class="cart-badge" id="nav-cart-badge">0</span>
+      </button>
+      <button
+        class="nav-buttons logout-btn"
+        onclick="logout() "
+        style="display: none"
+      >
+        Logout
+      </button>
+    </div>
+  </header>
+  <!-- Hero section: main marketing call-to-action -->
+  <section class="hero-container" id="home">
+    <div class="hero-text-block">
+      <h2 class="hero-heading">Welcome to Solar Symphony!</h2>
+      <p>
+        Power Your Future with Clean, Affordable Solar Energy Harness the Sun’s
+        Unlimited Potential. Save Money, Save the Planet. Get Your
+        High-Efficiency Solar Panels Today!
+      </p>
+      <div class="hero-button-row">
+        <button
+          class="nav-buttons hero01"
+          onclick="window.location.href='register.html'"
+        >
+          Sign up!
+        </button>
+        <button
+          class="nav-buttons hero02"
+          onclick="window.location.href='store.html'"
+        >
+          Visit our store
+        </button>
+      </div>
+    </div>
+    <div class="hero-img-block">
+      <img src="../Assets/her0.webp" />
+    </div>
+  </section>
+  <!-- Feature/description section -->
+  <section class="description-container">
+    <div class="description-box">
+      <div class="description-row">
+        <div class="description-card text">
+          <h3>High Efficiency Panels</h3>
+          <p>
+            Our high-efficiency solar panels harness the power of the sun to
+            deliver clean, renewable energy for your home or business. Made with
+            advanced monocrystalline silicon cells, these panels offer superior
+            durability, excellent performance even in low-light conditions, and
+            a lifespan of 25+ years.
+          </p>
+        </div>
+        <div class="description-card img">
+          <img src="../Assets/panel01.jpg" />
+        </div>
+      </div>
+      <div class="description-row reverse">
+        <div class="description-card text">
+          <h3>Full installation Package</h3>
+          <p>
+            When you choose our installation option, our expert team takes care
+            of everything from start to finish. We begin with a thorough
+            assessment of your property to design a custom solar system
+            optimized for your energy needs and roof layout. Then, we
+            professionally install mounting racks, secure your solar panels with
+            precision, connect all wiring to safe electrical standards, and set
+            up inverters to convert sunlight into usable power.
+          </p>
+        </div>
+        <div class="description-card img">
+          <img src="../Assets/panel02.jpg" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Quick links to shop categories -->
+  <section class="visit-container">
+    <div class="visit block">
+      <h2 class="visit-title">Explore!</h2>
+      <a class="visit-link" href="store.html">
+        <img src="../Assets/panel03.webp" />
+        <div class="visit-link-body">
+          <strong>Panels</strong>
+          <span> shop high-efficiency panels</span>
+        </div>
+      </a>
+      <a class="visit-link" href="store.html#installation">
+        <img src="../Assets/panel04.jpeg" />
+        <div class="visit-link-body">
+          <strong>Installation Packages</strong>
+          <span>Book a full installation package</span>
+        </div>
+      </a>
+    </div>
+  </section>
+  <!-- About us and contact CTA -->
+  <section class="about-us-container">
+    <div class="about-us-block">
+      <h2 class="about-title">About us</h2>
+      <p class="about-text">
+        At Solar Symphony, we’re dedicated to empowering you with clean,
+        affordable, and reliable solar energy solutions. With years of
+        experience in the renewable energy industry, our mission is to help
+        homes and businesses reduce their carbon footprint while saving on
+        energy costs. We offer top-quality solar panels backed by the latest
+        technology and provide expert installation services tailored to your
+        unique needs. From the initial consultation to seamless installation and
+        ongoing support, our certified team guides you every step of the way.
+        Join us in building a sustainable future—power your world with the sun
+        through Solar Symphony.
+      </p>
+    </div>
+    <div class="hero-button-row">
+      <button class="nav-buttons hero01">Conatct us</button>
+    </div>
+  </section>
+  <footer class="footer">
+    <p class="footer-copyright">© 2025 Solar Symphony. All rights reserved.</p>
+  </footer>
+  <a href="#home" class="back-to-top">↑</a>
+  <script src="login.js"></script>
+  <script src="main.js"></script>
+</body>

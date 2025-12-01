@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Invoice History — Solar Symphony</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="invoice-history.css" />
+  </head>
+  <body>
+    <!-- Header (shared across pages) -->
+    <header class="header-container">
+      <div class="header-logo-block">
+        <img src="../Assets/Logo01.png" />
+        <p>Solar Symphony</p>
+      </div>
+      <div class="header-nav-block">
+        <button class="nav-buttons" onclick="window.location.href='index.html'">
+          Home
+        </button>
+        <button class="nav-buttons" onclick="window.location.href='store.html'">
+          Store
+        </button>
+        <!-- These show when user is NOT logged in -->
+        <button
+          class="nav-buttons login-btn"
+          onclick="window.location.href='login.html'"
+          style="display: none"
+        >
+          Log-in
+        </button>
+        <button
+          class="nav-buttons register-btn"
+          onclick="window.location.href='register.html'"
+          style="display: none"
+        >
+          Register
+        </button>
+        <!-- These show when user is logged in -->
+        <button
+          class="nav-buttons invoices-btn"
+          onclick="window.location.href='invoice-history.html'"
+          style="display: none"
+        >
+          My Invoices
+        </button>
+        <button
+          class="nav-buttons cart-icon-btn"
+          onclick="window.location.href='cart.html'"
+          style="display: none"
+        >
+          <span class="cart-icon">
+            <img src="/Assets/cart.svg" alt="cart icon" />
+          </span>
+          <span class="cart-badge" id="nav-cart-badge">0</span>
+        </button>
+        <button
+          class="nav-buttons logout-btn"
+          onclick="logout() "
+          style="display: none"
+        >
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <main class="invoice-history-container">
+      <h2>Your Invoice History</h2>
+
+      <div class="invoice-history-actions">
+        <button id="back-to-store" class="nav-buttons">← Back to Store</button>
+        <button id="clear-history" class="remove-btn">Clear History</button>
+      </div>
+
+      <div id="invoices-list" class="invoices-list">
+        <!-- Invoices will be dynamically inserted here -->
+      </div>
+
+      <div id="empty-history" class="empty-history" style="display: none">
+        <h3>No Invoices Yet</h3>
+        <p>You haven't made any purchases yet.</p>
+        <button onclick="window.location.href='store.html'" class="nav-buttons">
+          Start Shopping
+        </button>
+      </div>
+    </main>
+    <script src="login.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

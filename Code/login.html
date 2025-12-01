@@ -1,0 +1,89 @@
+<!-- File: login.html - User login page -->
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solar Symphony</title>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+  <!-- Header (shared across pages) -->
+  <header class="header-container">
+    <div class="header-logo-block">
+      <img src="../Assets/Logo01.png" />
+      <p>Solar Symphony</p>
+    </div>
+    <div class="header-nav-block">
+      <button class="nav-buttons" onclick="window.location.href='index.html'">
+        Home
+      </button>
+      <!-- These show when user is NOT logged in -->
+      <button
+        class="nav-buttons login-btn"
+        onclick="window.location.href='login.html'"
+        style="display: none"
+      >
+        Log-in
+      </button>
+      <button
+        class="nav-buttons register-btn"
+        onclick="window.location.href='register.html'"
+        style="display: none"
+      >
+        Register
+      </button>
+      <!-- These show when user is logged in -->
+      <button
+        class="nav-buttons invoices-btn"
+        onclick="window.location.href='invoice-history.html'"
+        style="display: none"
+      >
+        My Invoices
+      </button>
+      <button
+        class="nav-buttons cart-icon-btn"
+        onclick="window.location.href='cart.html'"
+        style="display: none"
+      >
+        <span class="cart-icon">
+          <img src="/Assets/cart.svg" alt="cart icon" />
+        </span>
+        <span class="cart-badge" id="nav-cart-badge">0</span>
+      </button>
+      <button
+        class="nav-buttons logout-btn"
+        onclick="logout() "
+        style="display: none"
+      >
+        Logout
+      </button>
+    </div>
+  </header>
+  <!-- Login form container -->
+  <section class="login-container">
+    <div class="login-box">
+      <h2 class="login-title">Log in</h2>
+      <div class="login-content">
+        <form class="login-form" id="login-form">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+          <button type="submit" class="nav-buttons">Log in</button>
+        </form>
+        <p>You haven't signed up with us?</p>
+        <button
+          class="nav-buttons login"
+          onclick="window.location.href='register.html'"
+        >
+          Sign up
+        </button>
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <p class="footer-copyright">© 2025 Solar Symphony. All rights reserved.</p>
+  </footer>
+  <script src="login.js"></script>
+</body>

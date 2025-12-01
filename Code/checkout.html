@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Checkout — Solar Symphony</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="checkout.css" />
+  </head>
+  <body>
+    <!-- Header (shared across pages) -->
+    <header class="header-container">
+      <div class="header-logo-block">
+        <img src="../Assets/Logo01.png" />
+        <p>Solar Symphony</p>
+      </div>
+      <div class="header-nav-block">
+        <button class="nav-buttons" onclick="window.location.href='index.html'">
+          Home
+        </button>
+        <button class="nav-buttons" onclick="window.location.href='store.html'">
+          Store
+        </button>
+        <!-- These show when user is NOT logged in -->
+        <button
+          class="nav-buttons login-btn"
+          onclick="window.location.href='login.html'"
+          style="display: none"
+        >
+          Log-in
+        </button>
+        <button
+          class="nav-buttons register-btn"
+          onclick="window.location.href='register.html'"
+          style="display: none"
+        >
+          Register
+        </button>
+        <!-- These show when user is logged in -->
+        <button
+          class="nav-buttons invoices-btn"
+          onclick="window.location.href='invoice-history.html'"
+          style="display: none"
+        >
+          My Invoices
+        </button>
+        <button
+          class="nav-buttons cart-icon-btn"
+          onclick="window.location.href='cart.html'"
+          style="display: none"
+        >
+          <span class="cart-icon">
+            <img src="/Assets/cart.svg" alt="cart icon" />
+          </span>
+          <span class="cart-badge" id="nav-cart-badge">0</span>
+        </button>
+        <button
+          class="nav-buttons logout-btn"
+          onclick="logout() "
+          style="display: none"
+        >
+          Logout
+        </button>
+      </div>
+    </header>
+    <!-- Checkout content -->
+    <section class="checkout-container">
+      <a class="back" href="cart.html">← Back to Cart</a>
+      <h2 class="checkout-title">Checkout</h2>
+
+      <div class="checkout-box">
+        <div class="checkout-forms">
+          <!-- Shipping Address Form -->
+          <div class="form-section">
+            <h3>Shipping Address</h3>
+            <form id="shipping-form">
+              <div class="input-grid">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    id="fName"
+                    name="fName"
+                    placeholder="First Name"
+                    required
+                  />
+                </div>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    id="lName"
+                    name="lName"
+                    placeholder="Last Name"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="input-grid">
+                <div class="input-group">
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                  />
+                </div>
+                <div class="input-group">
+                  <input
+                    type="tel"
+                    id="pNum"
+                    name="pNum"
+                    placeholder="Phone Number"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="address1"
+                  name="address1"
+                  placeholder="Address Line 1"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="address2"
+                  name="address2"
+                  placeholder="Address Line 2"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <textarea
+                  id="description"
+                  name="description"
+                  placeholder="Additional Notes (Optional)"
+                ></textarea>
+              </div>
+            </form>
+          </div>
+
+          <!-- Payment Method Form -->
+          <div class="form-section">
+            <h3>Payment Method</h3>
+            <form id="payment-form">
+              <div class="input-group">
+                <select id="payment-method" required>
+                  <option value="">Select Payment Method</option>
+                  <option value="credit-card">Credit Card</option>
+                  <option value="debit-card">Debit Card</option>
+                  <option value="paypal">PayPal</option>
+                  <option value="bank-transfer">Bank Transfer</option>
+                </select>
+              </div>
+
+              <!-- Card Payment Fields (Hidden by default) -->
+              <div
+                id="card-payment-fields"
+                class="card-fields"
+                style="display: none"
+              >
+                <div class="input-group">
+                  <input
+                    type="text"
+                    id="card-number"
+                    name="card-number"
+                    placeholder="Card Number"
+                    maxlength="19"
+                  />
+                </div>
+                <div class="input-grid">
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      id="expiry-date"
+                      name="expiry-date"
+                      placeholder="MM/YY"
+                      maxlength="5"
+                    />
+                  </div>
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      id="cvv"
+                      name="cvv"
+                      placeholder="CVV"
+                      maxlength="4"
+                    />
+                  </div>
+                </div>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    id="cardholder-name"
+                    name="cardholder-name"
+                    placeholder="Cardholder Name"
+                  />
+                </div>
+                <div class="card-logos">
+                  <img src="../Assets/visa.png" alt="Visa" title="Visa" />
+                  <img
+                    src="../Assets/mastercard.png"
+                    alt="Mastercard"
+                    title="Mastercard"
+                  />
+                  <img
+                    src="../Assets/amex.png"
+                    alt="American Express"
+                    title="American Express"
+                  />
+                </div>
+              </div>
+
+              <!-- PayPal Fields (Hidden by default) -->
+              <div
+                id="paypal-fields"
+                class="paypal-fields"
+                style="display: none"
+              >
+                <div class="input-group">
+                  <input
+                    type="email"
+                    id="paypal-email"
+                    name="paypal-email"
+                    placeholder="PayPal Email Address"
+                  />
+                </div>
+                <p class="payment-note">
+                  You will be redirected to PayPal to complete your payment.
+                </p>
+              </div>
+
+              <!-- Bank Transfer Fields (Hidden by default) -->
+              <div
+                id="bank-transfer-fields"
+                class="bank-fields"
+                style="display: none"
+              >
+                <div class="bank-details">
+                  <h4>Bank Transfer Details</h4>
+                  <p><strong>Bank Name:</strong> Solar Symphony Trust Bank</p>
+                  <p><strong>Account Name:</strong> Solar Symphony Ltd</p>
+                  <p><strong>Account Number:</strong> 1234 5678 9012</p>
+                  <p><strong>Routing Number:</strong> 021000021</p>
+                  <p><strong>SWIFT/BIC:</strong> SSYBUS33</p>
+                  <p class="payment-note">
+                    Please use your order number as reference. Orders will be
+                    processed once payment is received.
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Order Summary -->
+        <aside class="order-summary">
+          <h3>Order Summary</h3>
+          <div id="checkout-items-container">
+            <!-- Cart items will be dynamically inserted here -->
+          </div>
+
+          <div class="summary-row">
+            <div>Subtotal</div>
+            <div id="summary-subtotal">$0.00</div>
+          </div>
+          <div class="summary-row">
+            <div>Shipping</div>
+            <div id="summary-shipping">$0.00</div>
+          </div>
+          <div class="summary-row">
+            <div>Discount</div>
+            <div id="summary-discount" style="color: #e74c3c">-$0.00</div>
+          </div>
+          <div class="summary-row">
+            <div>Taxes (15%)</div>
+            <div id="summary-taxes">$0.00</div>
+          </div>
+
+          <hr />
+
+          <div class="summary-row total-row">
+            <div><strong>Total</strong></div>
+            <div
+              id="summary-total"
+              style="font-weight: 800; font-size: 1.2rem; color: #0b6d5a"
+            >
+              $0.00
+            </div>
+          </div>
+
+          <button id="confirm-payment" class="checkout-btn">
+            Confirm Payment
+          </button>
+        </aside>
+      </div>
+    </section>
+    <script src="login.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
