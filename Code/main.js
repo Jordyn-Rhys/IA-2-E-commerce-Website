@@ -50,6 +50,15 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 }
+function escapeHtml(str) {
+  if (!str && str !== 0) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 // ==================== CART FUNCTIONS ====================
 function readCart() {
@@ -66,251 +75,300 @@ function readCart() {
       return item;
     });
   } catch (e) {
-    console.error("cart parse error", e);
-    return [];
+    // File: main.js - Main site scripts (cart, store, checkout handling)
+    // Cleaned and deduplicated version
+
+    // ==================== GLOBAL UTILITIES ====================
+    const $ = (sel) => document.querySelector(sel);
+
+    const formatMoney = (n) => {
+      const num = Number(n) || 0;
+      return (
+        "$" +
+        num.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      );
+    }};
+
+    const DISCOUNTS = {
+      Installation: 0.1,
+      Polycrystalline: 0.05,
+    };
+
+    const SHIPPING_TIERS = {
+      standard: 5000,
+      express: 10000,
+      free: 0,
+    };
+
+    const TAX_RATE = 0.15;
+    const FREE_SHIPPING_THRESHOLD = 100000;
+
+    const PROMO_CODES = {
+      SOLAR10: 0.1,
+      SUNNY25: 0.25,
+      GREEN50: 0.5,
+    };
   }
-}
-
-function saveCart(cart) {
-  localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-// Shared function to update cart badge
-function updateCartBadge() {
-  const cart = readCart();
-  const totalQty = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
-
-  // Update both badges if they exist
-  const cartBadge = document.querySelector(".cart-qty-badge");
-  const navCartBadge = document.getElementById("nav-cart-badge");
-
-  if (cartBadge) {
-    cartBadge.textContent = totalQty;
-    cartBadge.style.display = totalQty > 0 ? "flex" : "none";
-  }
-
-  if (navCartBadge) {
-    navCartBadge.textContent = totalQty;
-    navCartBadge.style.display = totalQty > 0 ? "flex" : "none";
-  }
-}
-
-function getDiscountedPrice(product) {
-  const discountRate = DISCOUNTS[product.category] || 0;
-  const discounted = product.price * (1 - discountRate);
-  return Math.round(discounted * 100) / 100;
-}
-
-function hasDiscount(product) {
-  return DISCOUNTS[product.category] > 0;
-}
-
-function getDiscountPercentage(product) {
-  return DISCOUNTS[product.category] * 100 || 0;
-}
-
-function calculateCartTotals(
-  cart,
-  shippingMethod = "standard",
-  promoCode = ""
-) {
-  const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
-
-  const subTotal = cart.reduce((sum, item) => {
-    const price = item.discountedPrice || item.price;
-    return sum + price * (item.quantity || 0);
-  }, 0);
-
-  const productDiscount = cart.reduce((sum, item) => {
-    return item.discountedPrice
-      ? sum + (item.price - item.discountedPrice) * (item.quantity || 0)
-      : sum;
-  }, 0);
-
-  let shipping = 0;
-  if (subTotal < FREE_SHIPPING_THRESHOLD) {
-    shipping = SHIPPING_TIERS[shippingMethod] || SHIPPING_TIERS.standard;
-  }
-
-  let promoDiscount = 0;
-  let validPromoCode = "";
-  if (promoCode && PROMO_CODES[promoCode.toUpperCase()]) {
-    const discountRate = PROMO_CODES[promoCode.toUpperCase()];
-    promoDiscount = subTotal * discountRate;
-    validPromoCode = promoCode.toUpperCase();
-  }
-
-  const totalDiscount = productDiscount + promoDiscount;
-  const taxableAmount = subTotal - promoDiscount;
-  const taxes = taxableAmount * TAX_RATE;
-  const total = subTotal + shipping + taxes - promoDiscount;
-
-  return {
-    totalItems,
-    subTotal: Math.round(subTotal * 100) / 100,
-    shipping,
-    productDiscount: Math.round(productDiscount * 100) / 100,
-    promoDiscount: Math.round(promoDiscount * 100) / 100,
-    totalDiscount: Math.round(totalDiscount * 100) / 100,
-    taxes: Math.round(taxes * 100) / 100,
-    total: Math.round(total * 100) / 100,
-    validPromoCode,
-    shippingMethod,
-    freeShippingEligible: subTotal >= FREE_SHIPPING_THRESHOLD,
-  };
-}
-
-function addToCart(id, name, price, img, quantity = 1) {
-  if (!id || !name || !price) {
-    console.warn("Missing product data:", { id, name, price, img });
-    alert("⚠️ Could not add item to cart. Missing product info.");
-    return;
-  }
-
-  const cart = readCart();
-  const idx = cart.findIndex((i) => i.id === id);
-  const numericPrice = normalizePrice(price);
-  quantity = Math.max(1, Number(quantity) || 1);
-
-  let category = "General";
-  if (id.startsWith("inst")) {
-    category = "Installation";
-  } else if (id.startsWith("y")) {
-    category = "Polycrystalline";
-  } else if (id.startsWith("x")) {
-    category = "Monocrystalline";
-  }
-
-  let discountedPrice = null;
-  if (hasDiscount({ category })) {
-    discountedPrice = getDiscountedPrice({ price: numericPrice, category });
-  }
-
-  if (idx > -1) {
-    cart[idx].quantity = (cart[idx].quantity || cart[idx].qty || 0) + quantity;
-    if (cart[idx].qty !== undefined) {
-      delete cart[idx].qty;
+    function normalizePrice(value) {
+      if (value == null) return 0;
+      if (typeof value === "number") return value;
+      return Number(String(value).replace(/[^0-9.-]+/g, "")) || 0;
     }
-  } else {
-    cart.push({
-      id,
-      name,
-      price: numericPrice,
-      discountedPrice,
-      quantity,
-      img,
-      category,
-    });
-  }
 
-  saveCart(cart);
-  updateCartBadge();
-  alert(`✅ "${name}" has been added to your cart.`);
-}
+    function escapeHtml(str) {
+      if (!str && str !== 0) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
 
-// ==================== MAIN INITIALIZATION ====================
-document.addEventListener("DOMContentLoaded", function () {
-  console.log("✅ main.js loaded - Cart, store, and checkout functions");
+    // ==================== CART FUNCTIONS ====================
+    function readCart() {
+      try {
+        const raw = localStorage.getItem("cart");
+        const cart = raw ? JSON.parse(raw) : [];
 
-  // Initialize based on page type
-  initializePage();
+        // Migrate old cart items from 'qty' to 'quantity'
+        return cart.map((item) => {
+          if (item && item.qty !== undefined && item.quantity === undefined) {
+            item.quantity = item.qty;
+            delete item.qty;
+          }
+          return item;
+        });
+      } catch (e) {
+        console.error("cart parse error", e);
+        return [];
+      }
+    }
 
-  // Update cart badge on page load
-  updateCartBadge();
-});
+    function saveCart(cart) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
 
-// Initialize page-specific functionality
-function initializePage() {
-  // Cart page
-  if (document.querySelector(".cart-container")) {
-    renderCart();
-  }
+    function updateCartBadge() {
+      const cart = readCart();
+      const totalQty = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
 
-  // Checkout page
-  if (document.querySelector(".checkout-container")) {
-    renderCheckoutPage();
-    attachCheckoutListeners();
-  }
+      const cartBadge = document.querySelector(".cart-qty-badge");
+      const navCartBadge = document.getElementById("nav-cart-badge");
 
-  // Invoice page
-  if (document.querySelector(".invoice-container")) {
-    generateInvoice();
-    attachInvoiceListeners();
-  }
+      if (cartBadge) {
+        cartBadge.textContent = totalQty;
+        cartBadge.style.display = totalQty > 0 ? "flex" : "none";
+      }
 
-  // Invoice History Page
-  if (document.querySelector(".invoice-history-container")) {
-    renderInvoiceHistory();
-  }
+      if (navCartBadge) {
+        navCartBadge.textContent = totalQty;
+        navCartBadge.style.display = totalQty > 0 ? "flex" : "none";
+      }
+    }
 
-  // Store page: wire up "Add to cart" buttons
-  document.querySelectorAll(".store").forEach((btn) => {
-    btn.addEventListener("click", function () {
-      const id = this.dataset.id;
-      const name = this.dataset.name;
-      const price = this.dataset.price;
-      const img = this.dataset.img;
-      addToCart(id, name, price, img, 1);
-    });
-  });
+    function getDiscountedPrice(product) {
+      const discountRate = DISCOUNTS[product.category] || 0;
+      const discounted = (product.price || 0) * (1 - discountRate);
+      return Math.round(discounted * 100) / 100;
+    }
 
-  // Original checkout form handling (for backward compatibility)
-  const checkoutForm = document.getElementById("checkout-form");
-  const receiptSection = document.querySelector(".receipt-container");
-  const receiptOutput = document.getElementById("receipt-output");
-  const downloadBtn = document.getElementById("download-receipt");
+    function hasDiscount(product) {
+      return !!DISCOUNTS[product.category];
+    }
 
-  if (checkoutForm) {
-    checkoutForm.addEventListener("submit", function (e) {
-      e.preventDefault();
+    function getDiscountPercentage(product) {
+      return (DISCOUNTS[product.category] || 0) * 100;
+    }
 
-      const address = document.getElementById("address").value.trim();
-      const payment = document.getElementById("payment").value;
+    function calculateCartTotals(cart, shippingMethod = "standard", promoCode = "") {
+      const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
 
-      if (!address || !payment) {
-        alert("⚠️ Please fill out all fields.");
+      const subTotal = cart.reduce((sum, item) => {
+        const price = item.discountedPrice || item.price || 0;
+        return sum + price * (item.quantity || 0);
+      }, 0);
+
+      const productDiscount = cart.reduce((sum, item) => {
+        return item.discountedPrice
+          ? sum + (item.price - item.discountedPrice) * (item.quantity || 0)
+          : sum;
+      }, 0);
+
+      let shipping = 0;
+      if (subTotal < FREE_SHIPPING_THRESHOLD) {
+        shipping = SHIPPING_TIERS[shippingMethod] || SHIPPING_TIERS.standard;
+      }
+
+      let promoDiscount = 0;
+      let validPromoCode = "";
+      if (promoCode && PROMO_CODES[promoCode.toUpperCase()]) {
+        const discountRate = PROMO_CODES[promoCode.toUpperCase()];
+        promoDiscount = subTotal * discountRate;
+        validPromoCode = promoCode.toUpperCase();
+      }
+
+      const totalDiscount = productDiscount + promoDiscount;
+      const taxableAmount = Math.max(0, subTotal - promoDiscount);
+      const taxes = taxableAmount * TAX_RATE;
+      const total = subTotal + shipping + taxes - promoDiscount;
+
+      return {
+        totalItems,
+        subTotal: Math.round(subTotal * 100) / 100,
+        shipping,
+        productDiscount: Math.round(productDiscount * 100) / 100,
+        promoDiscount: Math.round(promoDiscount * 100) / 100,
+        totalDiscount: Math.round(totalDiscount * 100) / 100,
+        taxes: Math.round(taxes * 100) / 100,
+        total: Math.round(total * 100) / 100,
+        validPromoCode,
+        shippingMethod,
+        freeShippingEligible: subTotal >= FREE_SHIPPING_THRESHOLD,
+      };
+    }
+
+    function addToCart(id, name, price, img, quantity = 1) {
+      if (!id || !name || !price) {
+        console.warn("Missing product data:", { id, name, price, img });
+        alert("⚠️ Could not add item to cart. Missing product info.");
         return;
       }
 
       const cart = readCart();
-      console.log("✅ Cart contents:", cart);
-      if (!Array.isArray(cart) || cart.length === 0) {
-        alert("⚠️ Your cart is empty.");
-        return;
+      const idx = cart.findIndex((i) => i.id === id);
+      const numericPrice = normalizePrice(price);
+      quantity = Math.max(1, Number(quantity) || 1);
+
+      let category = "General";
+      if (id && id.startsWith("inst")) {
+        category = "Installation";
+      } else if (id && id.startsWith("y")) {
+        category = "Polycrystalline";
+      } else if (id && id.startsWith("x")) {
+        category = "Monocrystalline";
       }
 
-      let receipt = `🧾 Solar Symphony Receipt\n\nDelivery Address:\n${address}\n\nPayment Method: ${payment}\n\nItems:\n`;
-      let total = 0;
+      let discountedPrice = null;
+      if (hasDiscount({ category })) {
+        discountedPrice = getDiscountedPrice({ price: numericPrice, category });
+      }
 
-      cart.forEach((item) => {
-        const line = `${item.name} x${item.quantity} @ $${item.price} = $${
-          item.price * item.quantity
-        }`;
-        receipt += line + "\n";
-        total += item.price * item.quantity;
+      if (idx > -1) {
+        cart[idx].quantity = (cart[idx].quantity || cart[idx].qty || 0) + quantity;
+        if (cart[idx].qty !== undefined) delete cart[idx].qty;
+      } else {
+        cart.push({ id, name, price: numericPrice, discountedPrice, quantity, img, category });
+      }
+
+      saveCart(cart);
+      updateCartBadge();
+      alert(`✅ "${name}" has been added to your cart.`);
+    }
+
+    // ==================== MAIN INITIALIZATION ====================
+    document.addEventListener("DOMContentLoaded", function () {
+      console.log("✅ main.js loaded - Cart, store, and checkout functions");
+      initializePage();
+    updateCartBadge();
+
+    function initializePage() {
+      // Cart page
+      if (document.querySelector(".cart-container")) {
+        renderCart();
+      }
+
+      // Checkout page
+      if (document.querySelector(".checkout-container")) {
+        renderCheckoutPage();
+        attachCheckoutListeners();
+      }
+
+      // Invoice page
+      if (document.querySelector(".invoice-container")) {
+        generateInvoice();
+        attachInvoiceListeners();
+      }
+
+      // Invoice History Page
+      if (document.querySelector(".invoice-history-container")) {
+        renderInvoiceHistory();
+      }
+
+      // Store page: wire up "Add to cart" buttons (elements with .store or .store-btn)
+      document.querySelectorAll(".store, .store-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const id = this.dataset.id;
+          const name = this.dataset.name;
+          const price = this.dataset.price;
+          const img = this.dataset.img;
+          addToCart(id, name, price, img, 1);
+        });
       });
 
-      receipt += `\nTotal: $${total.toFixed(2)}\n\nThank you for your order!`;
+      // Minimal backward-compatible checkout form handling (receipt-area)
+      const checkoutForm = document.getElementById("checkout-form");
+      const receiptSection = document.querySelector(".receipt-container");
+      const receiptOutput = document.getElementById("receipt-output");
+      const downloadBtn = document.getElementById("download-receipt");
 
-      receiptOutput.textContent = receipt;
-      receiptSection.style.display = "block";
-      localStorage.removeItem("cart");
-      updateCartBadge(); // Update badge after clearing cart
-    });
-  }
+      if (checkoutForm) {
+        checkoutForm.addEventListener("submit", function (e) {
+          e.preventDefault();
 
-  if (downloadBtn) {
-    downloadBtn.addEventListener("click", () => {
-      const blob = new Blob([receiptOutput.textContent], {
-        type: "text/plain",
-      });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "SolarSymphony_Receipt.txt";
-      link.click();
-    });
-  }
-}
+          const address = document.getElementById("address")
+            ? document.getElementById("address").value.trim()
+            : "";
+          const payment = document.getElementById("payment")
+            ? document.getElementById("payment").value
+            : "";
+
+          if (!address || !payment) {
+            alert("⚠️ Please fill out all fields.");
+            return;
+          }
+
+          const cart = readCart();
+          if (!Array.isArray(cart) || cart.length === 0) {
+            alert("⚠️ Your cart is empty.");
+            return;
+          }
+
+          let receipt = `🧾 Solar Symphony Receipt\\n\\nDelivery Address:\\n${address}\\n\\nPayment Method: ${payment}\\n\\nItems:\\n`;
+          let total = 0;
+
+          cart.forEach((item) => {
+            const line = `${item.name} x${item.quantity} @ ${formatMoney(item.price)} = ${formatMoney(
+              item.price * item.quantity
+            )}`;
+            receipt += line + "\\n";
+            total += item.price * item.quantity;
+          });
+
+          receipt += `\\nTotal: ${formatMoney(total)}\\n\\nThank you for your order!`;
+
+          if (receiptOutput) receiptOutput.textContent = receipt;
+          if (receiptSection) receiptSection.style.display = "block";
+          saveCart([]);
+          updateCartBadge();
+        });
+      }
+
+      if (downloadBtn && receiptOutput) {
+        downloadBtn.addEventListener("click", () => {
+          const blob = new Blob([receiptOutput.textContent], { type: "text/plain" });
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "SolarSymphony_Receipt.txt";
+          link.click();
+        });
+      }
+    }
+  updateCartBadge();
+});
 
 // ==================== RENDER FUNCTIONS ====================
 function renderCart() {
@@ -779,6 +837,8 @@ function attachCheckoutListeners() {
       const fName = document.getElementById("fName").value.trim();
       const lName = document.getElementById("lName").value.trim();
       const email = document.getElementById("email").value.trim();
+      const trn = document.getElementById("trn").value.trim();
+      const dob = document.getElementById("dob").value.trim();
       const pNum = document.getElementById("pNum").value.trim();
       const address1 = document.getElementById("address1").value.trim();
       const address2 = document.getElementById("address2").value.trim();
@@ -795,6 +855,8 @@ function attachCheckoutListeners() {
         !fName ||
         !lName ||
         !email ||
+        !trn ||
+        !dob ||
         !pNum ||
         !address1 ||
         !address2 ||
@@ -803,7 +865,15 @@ function attachCheckoutListeners() {
         alert("Please fill in all required fields.");
         return;
       }
+      if (!validateTRN(trn)) {
+        alert("Please enter a valid 9-digit TRN.");
+        return;
+      }
 
+      if (!validateDOB(dob)) {
+        alert("You must be at least 18 years old to make a purchase.");
+        return;
+      }
       const cart = readCart();
       const appliedPromoCode = localStorage.getItem("appliedPromoCode") || "";
       const totals = calculateCartTotals(
@@ -816,6 +886,8 @@ function attachCheckoutListeners() {
         customer: {
           name: `${fName} ${lName}`,
           email,
+          trn,
+          dob,
           phone: pNum,
           address: `${address1}, ${address2}`,
         },
@@ -831,7 +903,23 @@ function attachCheckoutListeners() {
       handleCheckoutSuccess(invoiceData);
     });
   }
+  //Validate trn format
+  function validateTRN(trn) {
+    const trnRegex = /^\d{9}$/;
+    return trnRegex.test(trn);
+  }
 
+  //validate date of birth (dob) to ensure user is at least 18 years old  
+  function validateDOB(dob) {
+    const birthDate = new Date(dob);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age >= 18;
+  }
   document
     .querySelectorAll('input[name="shipping-method"]')
     .forEach((radio) => {
@@ -901,10 +989,15 @@ function getAllInvoices() {
   }
 }
 //Purpose: Function to get invoice specific to user//
+//******************************************************//
+// Name: Jordyn-Rhys Davis (2405407)//
+//Purpose: Function to get invoice specific to user//
 function getInvoiceById(invoiceId) {
   const invoices = getAllInvoices();
   return invoices.find((invoice) => invoice.id === invoiceId);
 }
+//******************************************************//
+//******************************************************//
 
 function generateInvoice() {
   const invoiceData = JSON.parse(localStorage.getItem("invoiceData"));
@@ -925,6 +1018,10 @@ function generateInvoice() {
   document.getElementById("invoice-no").textContent = invoiceData.invoiceNo;
   document.getElementById("invoice-date").textContent = invoiceData.date;
 
+  const trnElement = document.getElementById("customer-trn");
+  if (trnElement && invoiceData.customer.trn) {
+    trnElement.textContent = invoiceData.customer.trn;
+  }
   const productsContainer = document.getElementById("invoice-products");
   productsContainer.innerHTML = "";
 
@@ -994,6 +1091,9 @@ function generateInvoice() {
   }
 }
 //Name: Camaria Simpson//
+//Purpose: Function to show invoice history// 
+//******************************************************// 
+// Name: Jordyn-Rhys Davis (2405407)// 
 //Purpose: Function to show invoice history// 
 function renderInvoiceHistory() {
   const invoicesList = document.getElementById("invoices-list");
@@ -1069,6 +1169,9 @@ function renderInvoiceHistory() {
 
   attachInvoiceHistoryListeners();
 }
+//******************************************************// 
+//******************************************************// 
+
 function attachInvoiceHistoryListeners() {
   document.querySelectorAll(".view-invoice-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
@@ -1133,6 +1236,9 @@ function downloadInvoice(invoiceId) {
   receiptText += `Email: ${invoice.customer.email}\n`;
   receiptText += `Phone: ${invoice.customer.phone}\n\n`;
   receiptText += `ITEMS:\n`;
+  if (invoice.customer.trn) {
+    receiptText += `TRN: ${invoice.customer.trn}\n`;
+  }
   receiptText += `------------------------\n`;
 
   invoice.cart.forEach((item) => {
