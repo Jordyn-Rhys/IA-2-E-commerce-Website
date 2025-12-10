@@ -46,19 +46,25 @@ document.addEventListener("DOMContentLoaded", function () {
     loginForm.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const email = document.getElementById("email").value.trim();
+      const trn = document.getElementById("trn").value.trim();
       const password = document.getElementById("password").value.trim();
 
       // Basic validation
-      if (!email || !password) {
-        alert("Please enter both email and password.");
+      //checks if both trn and password are entered
+      if (!trn || !password) {
+        alert("Please enter both trn and password.");
+        return;
+      }
+      //checks if trn is valid
+      if (!validateTRN(trn)) {
+        alert("Please enter a valid TRN (9 digits).");
         return;
       }
 
       // Check if user exists in localStorage
       const users = JSON.parse(localStorage.getItem("users")) || [];
       const user = users.find(
-        (u) => u.email === email && u.password === password
+        (u) => u.trn === trn && u.password === password
       );
 
       if (user) {
@@ -88,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "index.html";
       } else {
         // Failed login
-        alert("Invalid email or password. Please try again.");
+        alert("Invalid TRN or password. Please try again.");
       }
     });
   }
@@ -103,7 +109,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const firstName = document.getElementById("first-name").value.trim();
       const lastName = document.getElementById("last-name").value.trim();
       const address = document.getElementById("address").value.trim();
+      const trn = document.getElementById("trn").value.trim();
       const email = document.getElementById("register-email").value.trim();
+      const dob = document.getElementById("dob").value.trim();
+
       const password = document
         .getElementById("register-password")
         .value.trim();
@@ -115,6 +124,8 @@ document.addEventListener("DOMContentLoaded", function () {
         !lastName ||
         !address ||
         !email ||
+        !trn ||
+        !dob ||
         !password ||
         !phone
       ) {
@@ -128,6 +139,17 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Please enter a valid email address.");
         return;
       }
+      // DOB validation
+      if (!validateDOB(dob)) {
+        alert("You must be at least 18 years old to register.");
+        return;
+      }
+
+      // TRN validation
+      function validateTRN(trn) {
+        const trnRegex = /^\d{9}$/;
+        return trnRegex.test(trn);
+      }
 
       // Password validation (at least 6 characters)
       if (password.length < 6) {
@@ -137,11 +159,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Check if user already exists
       const users = JSON.parse(localStorage.getItem("users")) || [];
-      const existingUser = users.find((u) => u.email === email);
+      const existingUser = users.find((u) => u.email === email || u.trn === trn);
 
       if (existingUser) {
         alert(
-          "An account with this email already exists. Please log in instead."
+          "An account with this email or TRN already exists. Please log in instead."
         );
         return;
       }
@@ -154,7 +176,9 @@ document.addEventListener("DOMContentLoaded", function () {
         name: `${firstName} ${lastName}`,
         address,
         email,
-        password, // In a real app, you should hash the password!
+        dob,
+        trn,
+        password,
         phone,
         createdAt: new Date().toISOString(),
       };
@@ -168,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem(
         "currentUser",
         JSON.stringify({
-          email: newUser.email,
+          trn: newUser.trn,
           name: newUser.name,
         })
       );
@@ -205,7 +229,23 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ==================== FUNCTIONS ====================
+//Validate trn format
+function validateTRN(trn) {
+  const trnRegex = /^\d{9}$/;
+  return trnRegex.test(trn);
+}
 
+//validate date of birth (dob) to ensure user is at least 18 years old  
+function validateDOB(dob) {
+  const birthDate = new Date(dob);
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age >= 18;
+}
 // Logout function (called from navbar button)
 function logout() {
   if (confirm("Are you sure you want to log out?")) {
@@ -260,7 +300,6 @@ function updateCartBadge() {
   }
 }
 // ==================== LOGIN FREQUENCY TRACKING ====================
-// Name: Jordyn-Rhys Davis (2405407)
 // Record a login event for a userId (string). Stores timestamps in localStorage
 function recordLogin(userId) {
   if (!userId) return;

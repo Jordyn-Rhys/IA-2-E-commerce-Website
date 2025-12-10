@@ -988,8 +988,6 @@ function getAllInvoices() {
     return [];
   }
 }
-//******************************************************//
-// Name: Jordyn-Rhys Davis (2405407)//
 //Purpose: Function to get invoice specific to user//
 //******************************************************//
 // Name: Jordyn-Rhys Davis (2405407)//
@@ -1092,8 +1090,7 @@ function generateInvoice() {
     );
   }
 }
-//******************************************************// 
-// Name: Jordyn-Rhys Davis (2405407)// 
+//Name: Camaria Simpson//
 //Purpose: Function to show invoice history// 
 //******************************************************// 
 // Name: Jordyn-Rhys Davis (2405407)// 
