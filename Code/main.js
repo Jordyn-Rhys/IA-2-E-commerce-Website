@@ -900,14 +900,11 @@ function getAllInvoices() {
     return [];
   }
 }
-//******************************************************//
-// Name: Jordyn-Rhys Davis (2405407)//
 //Purpose: Function to get invoice specific to user//
 function getInvoiceById(invoiceId) {
   const invoices = getAllInvoices();
   return invoices.find((invoice) => invoice.id === invoiceId);
 }
-//******************************************************//
 
 function generateInvoice() {
   const invoiceData = JSON.parse(localStorage.getItem("invoiceData"));
@@ -996,8 +993,7 @@ function generateInvoice() {
     );
   }
 }
-//******************************************************// 
-// Name: Jordyn-Rhys Davis (2405407)// 
+//Name: Camaria Simpson//
 //Purpose: Function to show invoice history// 
 function renderInvoiceHistory() {
   const invoicesList = document.getElementById("invoices-list");
@@ -1073,8 +1069,6 @@ function renderInvoiceHistory() {
 
   attachInvoiceHistoryListeners();
 }
-//******************************************************// 
-
 function attachInvoiceHistoryListeners() {
   document.querySelectorAll(".view-invoice-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {

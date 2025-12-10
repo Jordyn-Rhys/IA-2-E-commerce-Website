@@ -260,7 +260,6 @@ function updateCartBadge() {
   }
 }
 // ==================== LOGIN FREQUENCY TRACKING ====================
-// Name: Jordyn-Rhys Davis (2405407)
 // Record a login event for a userId (string). Stores timestamps in localStorage
 function recordLogin(userId) {
   if (!userId) return;
